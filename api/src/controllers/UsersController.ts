@@ -8,6 +8,11 @@ class UsersController {
     //buscar somente um
   }
   async store(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { name, email, password } = request.body
+    } catch (error) {
+      next(error)
+    }
   }
   async auth(request: Request, response: Response, next: NextFunction) {
   }
