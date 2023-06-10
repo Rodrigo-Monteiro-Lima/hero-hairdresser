@@ -1,5 +1,6 @@
 import { ICreate } from "../interfaces/UsersInterface";
 import { UsersRepository } from "../repositories/UsersRepository";
+import { compare, hash } from 'bcrypt';
 
 class UsersService {
   private userRepository: UsersRepository;
@@ -11,8 +12,9 @@ class UsersService {
     if (findUser) {
       throw new Error('User already exists');
     }
-    const result = await this.userRepository.create({name, email, password});
-    return result;
+    const passwordHash = await hash(password, 10);
+    const newUser = await this.userRepository.create({name, email, password: passwordHash});
+    return newUser;
   }
 }
 
