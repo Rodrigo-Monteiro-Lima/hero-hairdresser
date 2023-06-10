@@ -15,7 +15,7 @@ class UsersController {
   async store(request: Request, response: Response, next: NextFunction) {
     try {
       const { name, email, password } = request.body
-      const result = this.userService.create({ name, email, password })
+      const result = await this.userService.create({ name, email, password })
       return response.status(201).json(result)
     } catch (error) {
       next(error)

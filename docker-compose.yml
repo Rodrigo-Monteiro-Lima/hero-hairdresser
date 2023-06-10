@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  backend:
+    container_name: app_backend
+    build: ./api
+    ports:
+      - 3001:3001
+    platform: linux/x86_64
+    working_dir: /app-backend
+    command: dev
+    volumes:
+      - ./api/src:/app-backend/src
+    environment:
+      - PORT=3001
+      - JWT_SECRET=secret
