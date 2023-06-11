@@ -56,7 +56,6 @@ class UsersService {
     };
   }
   async auth(email: string, password: string) {
-    console.log(email, password);
     const findUser = await this.userRepository.findUserByEmail(email);
     if (!findUser) {
       throw new Error('User or password invalid.');

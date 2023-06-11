@@ -14,7 +14,7 @@ class SchedulesService {
       throw new Error('Create Schedule between 9 and 19.');
     }
     if (isBefore(hourStart, new Date())) {
-      throw new Error('It is not allowed to schedule old date');
+      throw new Error('It is not allowed to schedule an old date');
     }
     const checkIsAvailable = await this.schedulesRepository.find(
       hourStart,
@@ -36,10 +36,6 @@ class SchedulesService {
     return result;
   }
   async update(id: string, date: Date, user_id: string) {
-    console.log(
-      '🚀 ~ file: SchedulesServices.ts:45 ~ SchedulesServices ~ update ~ date:',
-      date,
-    );
     const dateFormatted = new Date(date);
     const hourStart = startOfHour(dateFormatted);
     if (isBefore(hourStart, new Date())) {

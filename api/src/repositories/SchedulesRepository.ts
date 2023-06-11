@@ -4,7 +4,6 @@ import { ICreate } from '../interfaces/SchedulesInterface';
 
 class SchedulesRepository {
   async create({ name, phone, date, user_id }: ICreate) {
-    console.log(user_id);
     const result = await prisma.schedule.create({
       data: {
         name,
