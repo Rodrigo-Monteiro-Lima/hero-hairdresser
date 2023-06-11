@@ -5,6 +5,11 @@
   border-radius: 8px;
   color: var(--white);
   background-color: var(--secondary);
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--secondary-hover);
 }
 
 .button span {

@@ -5,7 +5,7 @@ interface IButton {
 }
 export const Button = ({ text }: IButton) => {
   return (
-    <button className={style.button}>
+    <button className={style.button} type='submit'>
       <span>{text}</span>
     </button>
   );
