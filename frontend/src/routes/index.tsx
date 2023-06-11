@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import { Login } from '../page/Login';
-import { Register } from '../page/Register';
-import { Dashboard } from '../page/Dashboard';
-import { Schedules } from '../page/Schedules';
+import { Login } from '../pages/Login';
+import { Register } from '../pages/Register';
+import { Dashboard } from '../pages/Dashboard';
+import { Schedules } from '../pages/Schedules';
 import { PrivateRoute } from './PrivateRoute';
-import { EditProfile } from '../page/EditProfile';
+import { EditProfile } from '../pages/EditProfile';
 
 export const RouteApp = () => {
   return (
