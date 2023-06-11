@@ -6,12 +6,6 @@ class UsersController {
   constructor() {
     this.userService = new UsersService();
   }
-  index() {
-    //buscar todos
-  }
-  show() {
-    //buscar somente um
-  }
   async store(request: Request, response: Response, next: NextFunction) {
     try {
       const { name, email, password } = request.body
@@ -42,6 +36,15 @@ class UsersController {
         user_id,
       });
       return response.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async refresh(request: Request, response: Response, next: NextFunction) {
+    const { refresh_token } = request.body;
+    try {
+      const result = await this.userService.refresh(refresh_token);
+      return response.json(result);
     } catch (error) {
       next(error);
     }

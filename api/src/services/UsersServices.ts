@@ -92,6 +92,29 @@ class UsersService {
       },
     };
   }
+  async refresh(refresh_token: string) {
+    if (!refresh_token) {
+      throw new Error('Refresh token missing');
+    }
+    let secretKeyRefresh: string | undefined =
+      process.env.ACCESS_KEY_TOKEN_REFRESH;
+    if (!secretKeyRefresh) {
+      throw new Error('There is no refresh token key');
+    }
+    let secretKey: string | undefined = process.env.ACCESS_KEY_TOKEN;
+    if (!secretKey) {
+      throw new Error('There is no refresh token key');
+    }
+    const verifyRefreshToken = verify(refresh_token, secretKeyRefresh);
+    const { sub } = verifyRefreshToken;
+    const newToken = sign({ sub }, secretKey, {
+      expiresIn: '1h',
+    });
+    const refreshToken = sign({ sub }, secretKeyRefresh, {
+      expiresIn: '7d',
+    });
+    return { token: newToken, refresh_token: refreshToken };
+  }
 }
 
 export default UsersService;
