@@ -22,6 +22,29 @@ class UsersController {
     }
   }
   async auth(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { email, password } = request.body;
+      const result = await this.userService.auth(email, password);
+      return response.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async update(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { name, oldPassword, newPassword } = request.body;
+      const { user_id } = request;
+      const result = await this.userService.update({
+        name,
+        oldPassword,
+        newPassword,
+        avatar_url: request.file,
+        user_id,
+      });
+      return response.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

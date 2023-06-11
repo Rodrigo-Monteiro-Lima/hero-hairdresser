@@ -7,9 +7,9 @@ services:
       - 3001:3001
     platform: linux/x86_64
     working_dir: /app-backend
-    command: dev
+    # command: dev
     volumes:
-      - ./api/src:/app-backend/src
+      - ./api:/app-backend
     environment:
       - PORT=3001
       - JWT_SECRET=secret
