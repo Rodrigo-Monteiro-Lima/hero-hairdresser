@@ -104,7 +104,7 @@ class UsersService {
     if (!secretKey) {
       throw new Error('There is no refresh token key');
     }
-    const verifyRefreshToken = verify(refresh_token, secretKeyRefresh);
+    const verifyRefreshToken = await verify(refresh_token, secretKeyRefresh);
     const { sub } = verifyRefreshToken;
     const newToken = sign({ sub }, secretKey, {
       expiresIn: '1h',

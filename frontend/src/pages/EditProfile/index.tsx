@@ -42,12 +42,12 @@ export function EditProfile() {
   const [fileUpload, setFileUpload] = useState(imageDefault);
 
   useEffect(() => {
-    const userStorage = localStorage.getItem('user:semana-heroi');
+    const userStorage = localStorage.getItem('user');
     const user = userStorage && JSON.parse(userStorage);
-
     setValue('name', user.name);
     setValue('email', user.email);
     setValue('picture', user.avatar_url);
+    setFileUpload(user.avatar_url);
   }, []);
 
   const submit = handleSubmit(

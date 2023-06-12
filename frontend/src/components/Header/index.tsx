@@ -4,6 +4,7 @@ import { CgProfile } from 'react-icons/cg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../hooks/auth';
+
 export function Header() {
   const { signOut } = useAuth();
   const [open, setOpen] = useState(false);

@@ -64,9 +64,9 @@ api.interceptors.response.use(
         });
       }
     } else {
-      // localStorage.removeItem('token');
-      // localStorage.removeItem('refresh_token');
-      // localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user');
     }
     return Promise.reject(error);
   },

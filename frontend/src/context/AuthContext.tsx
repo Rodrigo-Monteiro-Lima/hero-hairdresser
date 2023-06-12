@@ -10,6 +10,7 @@ interface IAuthProvider {
 interface IAuthContextData {
   signIn: ({ email, password }: ISignIn) => void;
   signOut: () => void;
+  signUp: ({ email, password, name }: IRegister) => void;
   user: IUserData;
   availableSchedules: Array<string>;
   schedules: Array<ISchedule>;
@@ -32,6 +33,11 @@ interface ISignIn {
   email: string;
   password: string;
 }
+
+interface IRegister extends ISignIn {
+  name: string;
+}
+
 export const AuthContext = createContext({} as IAuthContextData);
 
 export function AuthProvider({ children }: IAuthProvider) {
@@ -105,6 +111,23 @@ export function AuthProvider({ children }: IAuthProvider) {
       }
     }
   }
+  async function signUp({ email, password, name }: IRegister) {
+    try {
+      await api.post('/users', {
+        name,
+        email,
+        password,
+      });
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+      if (isAxiosError(error)) {
+        toast.error(error.response?.data.message);
+      } else {
+        toast.error('Não conseguimos cadastrar o usuário. Tente mais tarde');
+      }
+    }
+  }
   function signOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
@@ -116,6 +139,7 @@ export function AuthProvider({ children }: IAuthProvider) {
       value={{
         signIn,
         signOut,
+        signUp,
         user,
         availableSchedules,
         schedules,

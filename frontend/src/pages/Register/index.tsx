@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { BsPerson, BsKey } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
 import { api } from '../../server';
+import { useAuth } from '../../hooks/auth';
 interface IFormValues {
   name: string;
   email: string;
@@ -16,6 +17,7 @@ interface IFormValues {
 }
 
 export function Register() {
+  const { signUp } = useAuth();
   const schema = yup.object().shape({
     name: yup.string().required('Campo de nome obrigatório'),
     email: yup
@@ -33,12 +35,12 @@ export function Register() {
     formState: { errors },
   } = useForm<IFormValues>({ resolver: yupResolver(schema) });
 
-  const submit = handleSubmit(async (data) => {
-    const result = await api.post('/users', {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    });
+  const submit = handleSubmit(async ({email, password, name}) => {
+    try {
+      signUp({email, password, name});
+    } catch (error) {
+      console.log('🚀 ~ file: index.tsx:41 ~ submit ~ error:', error);
+    }
   });
   return (
     <div className={style.background}>
